@@ -1109,10 +1109,11 @@ public class FacetrackingWithUVs: MonoBehaviour
 
 					if(texturedModelMesh != TextureType.None && avModelUV != null)
 					{
-						if (!showRebecca)
-						  mesh.uv = avModelUV;
-						else
-						  mesh.uv = fixedUVs;
+						// Comment this block if you want to keep the original set of face UVs
+						//if (!showRebecca)
+						//  mesh.uv = avModelUV;
+						//else
+						//  mesh.uv = fixedUVs;
 
 						// NEW!
 						// pregen UVs are 1443 in length, while avModelUV is 1347. Not sure how that happened :-(
@@ -1684,17 +1685,17 @@ public class FacetrackingWithUVs: MonoBehaviour
 	}
 
 	void LateUpdate(){
-		//if (Input.GetKeyDown (KeyCode.Q)) {
-		//	ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
-		//	print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
-		//	print("Verts:");
-		//	print (GetFaceModelVertices().Length);
-		//	print ("UVs");
-		//	print (GetFaceModelUV ().Length);
-		//	print ("indices");
-		//	print (GetFaceModelTriangleIndices (false).Length);
+		if (Input.GetKeyDown (KeyCode.Q)) {
+			ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
+			print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
+			print("Verts:");
+			print (GetFaceModelVertices().Length);
+			print ("UVs");
+			print (GetFaceModelUV ().Length);
+			print ("indices");
+			print (GetFaceModelTriangleIndices (false).Length);
 
-		//}
+		}
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			showRebecca = !showRebecca;
 		}
