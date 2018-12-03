@@ -1110,10 +1110,10 @@ public class FacetrackingWithUVs: MonoBehaviour
 					if(texturedModelMesh != TextureType.None && avModelUV != null)
 					{
 						// Comment this block if you want to keep the original set of face UVs
-						//if (!showRebecca)
-						//  mesh.uv = avModelUV;
-						//else
-						//  mesh.uv = fixedUVs;
+						if (!showRebecca)
+						  mesh.uv = avModelUV;
+						else
+						  mesh.uv = fixedUVs;
 
 						// NEW!
 						// pregen UVs are 1443 in length, while avModelUV is 1347. Not sure how that happened :-(
