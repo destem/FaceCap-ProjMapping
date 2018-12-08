@@ -1033,7 +1033,7 @@ public class FacetrackingWithUVs: MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.Q)) {
 			changeUV = true;
 			currentUV++;
-			if(currentUV>=faceImage.Length){
+			if(currentUV>=faceImages.Length){
 				currentUV=-1;
 				maskMesh = false;
 			} else {
