@@ -909,11 +909,18 @@ public class FacetrackingWithUVs : MonoBehaviour
                     if (texturedModelMesh != TextureType.None && avModelUV != null)
                     {
                         //update the mesh 
-                        if (!changeUV)
+                        if (maskMesh)
+                        {
+                            mesh.uv = fixedUVs;
+                        } else
+                        {
+                            mesh.uv = avModelUV;
+                        }
+                        /*if (!changeUV)
                             mesh.uv = avModelUV;
                         else
                             mesh.uv = fixedUVs;
-
+                        */
                     }
 
                     //set when last time updated
@@ -926,7 +933,7 @@ public class FacetrackingWithUVs : MonoBehaviour
 
                     // update the texture to corispond to the mesh 
                     //if mesh is to be changed
-                    /*if(changeUV){
+                    if(changeUV){
 					    //if currentUv is -1 then set it to the kinect face
 					    if (currentUV == -1){
 				  		    SetFaceModelMeshTexture();
@@ -935,13 +942,13 @@ public class FacetrackingWithUVs : MonoBehaviour
 					  	    faceMeshMaterial.mainTexture = faceImages[currentUV];
 					    }
 					    changeUV = false;
-				    }*/
-
+				    }
+                    /*
                     if (!changeUV)
                         SetFaceModelMeshTexture();
                     else
                         faceMeshMaterial.mainTexture = faceImages[0];
-
+                        */
                 }
             }
 
@@ -1048,17 +1055,19 @@ public class FacetrackingWithUVs : MonoBehaviour
         //	print (GetFaceModelTriangleIndices (false).Length);
 
         //}
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            changeUV = !changeUV;
-            /*
+            //changeUV = !changeUV;
+            
 			currentUV++;
 			if(currentUV>=faceImages.Length){
 				currentUV=-1;
 				maskMesh = false;
 			} else {
+                
 				maskMesh = true;
-			}*/
+			}
+            changeUV = true;
 
         }
 
