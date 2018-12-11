@@ -19,8 +19,11 @@ public class FacetrackingWithUVs : MonoBehaviour
     //variable to change uv's
     private bool changeUV = false;
     private bool maskMesh = false;
-    //start uv's
+    //current mask
     private int currentUV = -1;
+
+    //display uv
+    private bool display = false;
 
     //vector for uvs
     private Vector2[] fixedUVs = new Vector2[1347];
@@ -507,6 +510,11 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     void Update()
     {
+    	//if no display then quit
+    	if(!display){
+    		return;
+    	}
+
         //if face tracking is initialized
         if (isFacetrackingInitialized)
         {
@@ -1069,6 +1077,10 @@ public class FacetrackingWithUVs : MonoBehaviour
 			}
             changeUV = true;
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)){
+        	display = !display;
         }
 
     }
