@@ -30,7 +30,6 @@ public class OSCControl : MonoBehaviour {
 	void Start () {
 		reciever = new OSCReciever();
 		reciever.Open(port);
-		
 	}
 	
 	// Update is called once per frame

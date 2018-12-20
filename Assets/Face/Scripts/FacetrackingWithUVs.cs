@@ -892,7 +892,7 @@ public class FacetrackingWithUVs : MonoBehaviour
             // only needed if default mesh is being used
             task.Start();
 
-            // wtf why wait till done if async
+            // wtf why wait till done if async othern than for performance
             while (task.State == AsyncTaskState.Running)
             {
                 yield return null;
@@ -900,6 +900,7 @@ public class FacetrackingWithUVs : MonoBehaviour
 
             //if face mesh is updated
             bFaceMeshUpdated = task.Result;
+            /*--------------------For performance don't forget to update here--------------------------*/
             if (bFaceMeshUpdated)
             {
                 //update the mesh and location
@@ -940,8 +941,9 @@ public class FacetrackingWithUVs : MonoBehaviour
                     //if currentUv is -1 then set it to the kinect face
                     if (currentUV == -1)
                     {
-                        SetFaceModelMeshTexture();
 
+                        SetFaceModelMeshTexture();
+                        
                         //to make sure the face updated each frame    
                         changeUV = true;
                     }
