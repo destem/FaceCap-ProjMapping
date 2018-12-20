@@ -934,23 +934,27 @@ public class FacetrackingWithUVs : MonoBehaviour
                 //if mesh is to be changed
                 if(changeUV){
                     changeUV = false;
-                    if(!display){
-        				faceMeshMaterial.mainTexture = blackTexture;
-        			}
-
-                    //if currentUv is -1 then set it to the kinect face
-                    if (currentUV == -1)
+                    if (!display)
                     {
-
-                        SetFaceModelMeshTexture();
-                        
-                        //to make sure the face updated each frame    
-                        changeUV = true;
+                        faceMeshMaterial.mainTexture = blackTexture;
                     }
                     else
                     {
-                        //else grab texture from array
-                        faceMeshMaterial.mainTexture = faceImages[currentUV];
+
+                        //if currentUv is -1 then set it to the kinect face
+                        if (currentUV == -1)
+                        {
+
+                            SetFaceModelMeshTexture();
+
+                            //to make sure the face updated each frame    
+                            changeUV = true;
+                        }
+                        else
+                        {
+                            //else grab texture from array
+                            faceMeshMaterial.mainTexture = faceImages[currentUV];
+                        }
                     }
                 }
 
@@ -1059,7 +1063,6 @@ public class FacetrackingWithUVs : MonoBehaviour
 				currentUV=-1;
 				maskMesh = false;
 			} else {
-                
 				maskMesh = true;
 			}
             changeUV = true;
@@ -1068,6 +1071,7 @@ public class FacetrackingWithUVs : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)){
             display = !display;
+            changeUV = true;
         }
 
     }
