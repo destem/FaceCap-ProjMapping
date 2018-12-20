@@ -571,14 +571,12 @@ public class FacetrackingWithUVs : MonoBehaviour
                     // get the shape units
                     bGotSU = sensorData.sensorInterface.GetShapeUnits(primaryUserID, ref dictSU);
 
-                    //if(faceModelMesh != null && faceModelMesh.activeInHierarchy)
+                    // apply model vertices to the mesh
+                    if (!bFaceModelMeshInited)
                     {
-                        // apply model vertices to the mesh
-                        if (!bFaceModelMeshInited)
-                        {
-                            bFaceModelMeshInited = CreateFaceModelMesh();
-                        }
+                        bFaceModelMeshInited = CreateFaceModelMesh();
                     }
+                    
                     //if user and face model data available
                     if (getFaceModelData && bFaceModelMeshInited && primaryUserID != 0)
                     {
@@ -633,35 +631,33 @@ public class FacetrackingWithUVs : MonoBehaviour
         // estimate face mesh vertices with respect to the head joint
         Vector3[] vMeshVertices = new Vector3[avModelVertices.Length];
 
-        //if (!bGotModelVerticesFromDC) 
+        Vector3 vFaceCenter = Vector3.zero;
+        for (int i = 0; i < avModelVertices.Length; i++)
         {
-            Vector3 vFaceCenter = Vector3.zero;
-            for (int i = 0; i < avModelVertices.Length; i++)
-            {
-                vFaceCenter += avModelVertices[i];
-            }
-
-            vFaceCenter /= (float)avModelVertices.Length;
-
-            faceHeadOffset = Vector3.zero;
-            if (vFaceCenter.sqrMagnitude >= 1f)
-            {
-                Vector3 vHeadToFace = (vFaceCenter - headPos);
-
-                faceHeadOffset = Quaternion.Inverse(headRot) * vHeadToFace;
-                faceHeadOffset.y += verticalMeshOffset;
-            }
-
-            vFaceCenter -= headRot * faceHeadOffset;
-
-            for (int i = 0; i < avModelVertices.Length; i++)
-            {
-                //avModelVertices[i] = kinectToWorld.MultiplyPoint3x4(avModelVertices[i]) - headPosWorld;
-                //avModelVertices[i] -= vFaceCenter;
-
-                vMeshVertices[i] = avModelVertices[i] - vFaceCenter;
-            }
+            vFaceCenter += avModelVertices[i];
         }
+
+        vFaceCenter /= (float)avModelVertices.Length;
+
+        faceHeadOffset = Vector3.zero;
+        if (vFaceCenter.sqrMagnitude >= 1f)
+        {
+            Vector3 vHeadToFace = (vFaceCenter - headPos);
+
+            faceHeadOffset = Quaternion.Inverse(headRot) * vHeadToFace;
+            faceHeadOffset.y += verticalMeshOffset;
+        }
+
+        vFaceCenter -= headRot * faceHeadOffset;
+
+        for (int i = 0; i < avModelVertices.Length; i++)
+        {
+            //avModelVertices[i] = kinectToWorld.MultiplyPoint3x4(avModelVertices[i]) - headPosWorld;
+            //avModelVertices[i] -= vFaceCenter;
+
+            vMeshVertices[i] = avModelVertices[i] - vFaceCenter;
+        }
+        
 
 
         if (avModelTriangles == null && !bGotModelTrianglesFromDC)
@@ -902,7 +898,7 @@ public class FacetrackingWithUVs : MonoBehaviour
                 yield return null;
             }
 
-            //sif face mesh is updated
+            //if face mesh is updated
             bFaceMeshUpdated = task.Result;
             if (bFaceMeshUpdated)
             {

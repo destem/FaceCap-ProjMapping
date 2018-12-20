@@ -61,12 +61,12 @@ public class ChangeCameraLocation : MonoBehaviour {
         }
         if (Input.GetKey("q"))
         {               
-                transform.Rotate(0,0,-rotationOffset);
+               transform.Rotate(0,0,-rotationOffset);
             update = true;
         }
         if (Input.GetKey("e"))
         {
-                transform.Rotate(0,0,rotationOffset);
+            transform.Rotate(0,0,rotationOffset);
             update = true;
         }
 
