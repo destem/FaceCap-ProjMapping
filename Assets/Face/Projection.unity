@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b531f336dfee5f438f94ed501caefc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensorHeight: 1
+  sensorHeight: 0
   sensorAngle: 0
   autoHeightAngle: 0
   computeUserMap: 1
