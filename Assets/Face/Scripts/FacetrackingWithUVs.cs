@@ -21,7 +21,7 @@ public class FacetrackingWithUVs : MonoBehaviour
     private bool maskMesh = false;
 
     //current mask
-    private int currentUV = -1;
+    private int currentUV = 0;
 
     //display uv variables
     private bool display = false;
@@ -817,76 +817,10 @@ public class FacetrackingWithUVs : MonoBehaviour
                     return false;
                 }
 
-                //if texture Modemesh is not empty and needs updating
-                if (texturedModelMesh != TextureType.None)
-                {
-                    //update the face mesh colors
-                    float colorWidth = (float)kinectManager.GetColorImageWidth();
-                    float colorHeight = (float)kinectManager.GetColorImageHeight();
-
-                    bool faceRectValid = faceRect.width > 0 && faceRect.height > 0;
-                    int lastValidUVIndex = -1;  // new code by Andrew Stern
-
-                    //update the face mesh with depth and position
-                    for (int i = 0; i < avModelVertices.Length; i++)
-                    {
-                        Vector2 posDepth = Vector2.zero;
-                        if (texturedModelMesh == TextureType.ColorMap || !bGotModelUV)
-                        {
-                            posDepth = kinectManager.MapSpacePointToDepthCoords(avModelVertices[i]);
-                        }
-
-                        bool bUvSet = false;
-                        if (posDepth != Vector2.zero)
-                        {
-                            ushort depth = kinectManager.GetDepthForPixel((int)posDepth.x, (int)posDepth.y);
-                            Vector2 posColor = kinectManager.MapDepthPointToColorCoords(posDepth, depth);
-
-                            if (posColor != Vector2.zero && !float.IsInfinity(posColor.x) && !float.IsInfinity(posColor.y))
-                            {
-                                if (texturedModelMesh == TextureType.ColorMap)
-                                {
-                                    avModelUV[i] = new Vector2(posColor.x / colorWidth, posColor.y / colorHeight);
-                                    lastValidUVIndex = i;   // new code by Andrew Stern
-                                    bUvSet = true;
-                                }
-                                else if (texturedModelMesh == TextureType.FaceRectangle && faceRectValid)
-                                {
-                                    if (!bGotModelUV)
-                                    {
-                                        avModelUV[i] = new Vector2(/**Mathf.Clamp01*/((posColor.x - faceRect.x) / faceRect.width),
-                                            /**Mathf.Clamp01*/(1f - (posColor.y - faceRect.y) / faceRect.height));
-                                        lastValidUVIndex = i;   // new code by Andrew Stern
-                                    }
-
-                                    bUvSet = true;
-                                }
-                            }
-                        }
-
-                        if (texturedModelMesh == TextureType.ColorMap && !bUvSet)
-                        {
-                            if (lastValidUVIndex >= 0) // new code by Andrew Stern
-                            {
-                                avModelUV[i] = new Vector2(avModelUV[lastValidUVIndex].x, avModelUV[lastValidUVIndex].y);
-                            }
-                            else
-                            {
-                                // original code
-                                avModelUV[i] = Vector2.zero;
-                            }
-                        }
-                    }
-
-                    if (lastValidUVIndex >= 0)  // check for valid run
-                        bGotModelUV = true;
-                }
-
                 return true;
             });
 
 
-            /*--------------------CHECK HERE FOR PERFORMANCE AND RELAIABLITIY. DOES MESH NEED TO BE ALWAYS UPDATED--------------------------*/
 
             // start the mesh update
             // only needed if default mesh is being used
@@ -900,7 +834,7 @@ public class FacetrackingWithUVs : MonoBehaviour
 
             //if face mesh is updated
             bFaceMeshUpdated = task.Result;
-            /*--------------------For performance don't forget to update here--------------------------*/
+
             if (bFaceMeshUpdated)
             {
                 //update the mesh and location
@@ -909,16 +843,12 @@ public class FacetrackingWithUVs : MonoBehaviour
                 vMeshVertices = null;
 
                 //update the texture if not null
-                if (texturedModelMesh != TextureType.None && avModelUV != null)
+                
+                if (texturedModelMesh != TextureType.None)
                 {
                     //update the mesh 
-                    if (maskMesh)
-                    {
-                        mesh.uv = fixedUVs;
-                    } else
-                    {
-                        mesh.uv = avModelUV;
-                    }
+                    mesh.uv = fixedUVs;
+                    
                  
                 }
 
@@ -940,21 +870,8 @@ public class FacetrackingWithUVs : MonoBehaviour
                     }
                     else
                     {
-
-                        //if currentUv is -1 then set it to the kinect face
-                        if (currentUV == -1)
-                        {
-
-                            SetFaceModelMeshTexture();
-
-                            //to make sure the face updated each frame    
-                            changeUV = true;
-                        }
-                        else
-                        {
-                            //else grab texture from array
-                            faceMeshMaterial.mainTexture = faceImages[currentUV];
-                        }
+                        //else grab texture from array
+                        faceMeshMaterial.mainTexture = faceImages[currentUV];
                     }
                 }
 
@@ -1044,27 +961,32 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     void LateUpdate()
     {
-        /* CODE TO SAVE VERTICIES */
-        //if (Input.GetKeyDown (KeyCode.Q)) {
-        //	ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
-        //	print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
-        //	print("Verts:");
-        //	print (GetFaceModelVertices().Length);
-        //	print ("UVs");
-        //	print (GetFaceModelUV ().Length);
-        //	print ("indices");
-        //	print (GetFaceModelTriangleIndices (false).Length);
+        // CODE TO SAVE VERTICIES 
+        /*
+        if (Input.GetKeyDown (KeyCode.Q)) {
+        	ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
+        	print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
+        	print("Verts:");
+        	print (GetFaceModelVertices().Length);
+        	print ("UVs");
+        	print (GetFaceModelUV ().Length);
+        	print ("indices");
+        	print (GetFaceModelTriangleIndices (false).Length);
 
-        //}
+        }*/
         if (Input.GetKeyDown(KeyCode.P))
         {
 			currentUV++;
-			if(currentUV>=faceImages.Length){
-				currentUV=-1;
+            if (currentUV >= faceImages.Length)
+            {
+                currentUV = 0;
+            }
+                /*currentUV=-1;
 				maskMesh = false;
 			} else {
 				maskMesh = true;
-			}
+			}*/
+            maskMesh = true;
             changeUV = true;
 
         }
