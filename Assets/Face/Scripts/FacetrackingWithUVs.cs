@@ -22,6 +22,8 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     //current mask
     private int currentUV = 0;
+    private bool textureLock = false;
+
 
     //display uv variables
     private bool display = false;
@@ -150,6 +152,53 @@ public class FacetrackingWithUVs : MonoBehaviour
     private Material faceMeshMaterial = null;
     private RenderTexture faceMeshTexture = null;
     private Vector3 nosePos = Vector3.zero;
+
+    /*-------------------------------------PUBLIC FUNCTIONS-------------------------------------------*/
+    public bool nextTexture()
+    {
+        if (textureChanging())
+        {
+            return false;
+        }
+        textureLock = true;
+        currentUV++;
+        if (currentUV >= faceImages.Length)
+        {
+            currentUV = 0;
+        }
+        maskMesh = true;
+        changeUV = true;
+        return true;
+    }
+
+    public bool nextTexture(int texture)
+    {
+        if (textureChanging())
+        {
+            return false;
+        }
+        textureLock = true;
+        currentUV = texture;
+        if (currentUV >= faceImages.Length)
+        {
+            currentUV = faceImages.Length - 1;
+        }
+        maskMesh = true;
+        changeUV = true;
+        return true;
+    }
+    //returns if the texture is being changed
+    public bool textureChanging()
+    {
+        return textureLock;
+    }
+
+    public bool setDisplay(bool value)
+    {
+        display = value;
+        changeUV = true;
+        return display;
+    }
 
     //returns the instance
     public static FacetrackingWithUVs Instance
@@ -863,6 +912,7 @@ public class FacetrackingWithUVs : MonoBehaviour
                 // update the texture to corispond to the mesh 
                 //if mesh is to be changed
                 if(changeUV){
+
                     changeUV = false;
                     if (!display)
                     {
@@ -873,6 +923,8 @@ public class FacetrackingWithUVs : MonoBehaviour
                         //else grab texture from array
                         faceMeshMaterial.mainTexture = faceImages[currentUV];
                     }
+                    textureLock = false;
+
                 }
 
             }
@@ -958,7 +1010,7 @@ public class FacetrackingWithUVs : MonoBehaviour
 
         return Vector3.zero;
     }
-
+  
     void LateUpdate()
     {
         // CODE TO SAVE VERTICIES 
@@ -976,19 +1028,8 @@ public class FacetrackingWithUVs : MonoBehaviour
         }*/
         if (Input.GetKeyDown(KeyCode.P))
         {
-			currentUV++;
-            if (currentUV >= faceImages.Length)
-            {
-                currentUV = 0;
-            }
-                /*currentUV=-1;
-				maskMesh = false;
-			} else {
-				maskMesh = true;
-			}*/
-            maskMesh = true;
-            changeUV = true;
 
+            nextTexture();
         }
 
         if (Input.GetKeyDown(KeyCode.Space)){
