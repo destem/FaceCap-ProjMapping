@@ -28,7 +28,7 @@ This project uses OSC to comunicate remotely. To use OSC you must be able to sen
 
 ## Deployment
 #### Installation
-Downloaded the latest build located in the `build/` folder or if you would like to you can download the source code in the src folder
+Downloaded the latest bin located in the `bin/` folder or if you would like to you can download the source code in the src folder
 
 #### Kinect Installation
 To set up the Kinect, you must supply it power and plug it into any USB 3.0 port on the computer. To test the Kinect, you can run the `Kinect Studio 2.0` which comes with the installation of the  Kinect SDK v2.  
