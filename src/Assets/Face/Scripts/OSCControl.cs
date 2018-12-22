@@ -9,9 +9,7 @@ public class OSCControl : MonoBehaviour {
 	private OSCReciever reciever;
 
 	public int port = 8338;
-	
-	[Tooltip("Game object that will be used to display the HD-face model mesh in the scene.")]
-    public GameObject faceModelMesh = null;
+
 
     private FacetrackingWithUVs kinectControler;
 
@@ -34,7 +32,8 @@ public class OSCControl : MonoBehaviour {
         {
             OSCMessage message = reciever.getNextMessage();
             string value = string.Format(DataToString(message.Data));
-            Debug.Log(message.Address +":"+value);
+
+            //read mask messages
             if(message.Address == "/osc/mask")
             {
                 int texture = 0;
@@ -48,6 +47,7 @@ public class OSCControl : MonoBehaviour {
                 
             }
 
+            //read display messages
             if (message.Address == "/osc/display")
             {
                 int displayValue = 0;

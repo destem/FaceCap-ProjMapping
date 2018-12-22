@@ -438,7 +438,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c0a34b04fc0e79f40a622f8acbcca380, type: 2}
+  - {fileID: 2100000, guid: f80dbfc05e4d1e5459cd1eb36439b8f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -464,7 +464,7 @@ MeshCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362403389}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 797df63a5e8765445a65edd3a0cf658b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -720,6 +720,7 @@ GameObject:
   - component: {fileID: 1132228663}
   - component: {fileID: 1132228662}
   - component: {fileID: 1132228661}
+  - component: {fileID: 1132228664}
   m_Layer: 0
   m_Name: KinectController
   m_TagString: Untagged
@@ -740,6 +741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   faceImages:
   - {fileID: 2800000, guid: 89b103c6fc4ec8148826fc6a6813a08c, type: 3}
+  - {fileID: 2800000, guid: 439069ca6828813498a648200b066bc5, type: 3}
   blackTexture: {fileID: 2800000, guid: 39d1a3295162bd641b1bf5372fcf4eba, type: 3}
   playerIndex: 0
   getFaceModelData: 1
@@ -813,6 +815,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1132228664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1132228660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed238ebef07f14f4e9b138d7f5554f50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  port: 8338
 --- !u!1 &1204629168
 GameObject:
   m_ObjectHideFlags: 0
