@@ -39,7 +39,13 @@ public class OSCControl : MonoBehaviour {
                 int texture = 0;
                 if(Int32.TryParse(value, out texture))
                 {
-                    kinectControler.nextTexture(texture);
+                    if(texture < 0)
+                    {
+                        kinectControler.nextTexture();
+                    } else
+                    {
+                        kinectControler.nextTexture(texture);
+                    }
                 } else
                 {
                     kinectControler.nextTexture();
@@ -60,6 +66,26 @@ public class OSCControl : MonoBehaviour {
                     {
                         kinectControler.setDisplay(false);
                     }
+                }
+            }
+
+            if (message.Address == "/osc/person")
+            {
+                int person = 0;
+                if (Int32.TryParse(value, out person))
+                {
+                    if (person < 0)
+                    {
+                        kinectControler.nextPerson();
+                    }
+                    else
+                    {
+                        kinectControler.nextPerson(person);
+                    }
+                }
+                else
+                {
+                    kinectControler.nextPerson();
                 }
             }
 

@@ -58,8 +58,10 @@ Please refere to the following for all key commands
 | P      |  Go to the next texture|
 
 #### OSC implementation
-There are two functions in this OSC Implementation.
+There are three functions in this OSC Implementation.
 
 The first is to turn on and off the display. The display is controlled through the `/osc/display/` address and uses the value `1` to display and `0` to turn off the display.
 
 The second is to control which mask is being displayed. This is used through the `/osc/mask/` address and can either take the number of the mask, i.e. mask one would use the value `1` or the command `next` which would go to the next mask.
+
+The third is to control who is being tracked. This is used throug hthe `/osc/person` address and can either take the number of the person to be tracked or the comannd `next` which would display the next person

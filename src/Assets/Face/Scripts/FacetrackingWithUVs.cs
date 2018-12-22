@@ -154,6 +154,28 @@ public class FacetrackingWithUVs : MonoBehaviour
     private Vector3 nosePos = Vector3.zero;
 
     /*-------------------------------------PUBLIC FUNCTIONS-------------------------------------------*/
+    //switch to the next person
+    public int nextPerson()
+    {
+        playerIndex++;
+        if(playerIndex >= KinectManager.Instance.GetBodyCount())
+        {
+            playerIndex = KinectManager.Instance.GetBodyCount() - 1;
+        }
+        return playerIndex;
+    }
+
+    //switch to the person index
+    public int nextPerson(int input)
+    {
+        playerIndex = input ;
+        if (playerIndex >= KinectManager.Instance.GetBodyCount())
+        {
+            playerIndex = KinectManager.Instance.GetBodyCount() - 1;
+        }
+        return playerIndex;
+    }
+
     public bool nextTexture()
     {
         if (textureChanging())
@@ -574,6 +596,10 @@ public class FacetrackingWithUVs : MonoBehaviour
             {
                 //get the new user
                 lastUserID = primaryUserID;
+                if(playerIndex >= kinectManager.GetUsersCount())
+                {
+                    playerIndex = kinectManager.GetUsersCount() - 1;
+                }
                 primaryUserID = kinectManager.GetUserIdByIndex(playerIndex);
 
                 //if new user
