@@ -153,6 +153,10 @@ public class FacetrackingWithUVs : MonoBehaviour
     private Vector3 nosePos = Vector3.zero;
 
     /*-------------------------------------PUBLIC FUNCTIONS-------------------------------------------*/
+    public int getCount()
+    {
+        return KinectManager.Instance.GetBodyCount();
+    }
     //switch to the next person
     public int nextPerson()
     {

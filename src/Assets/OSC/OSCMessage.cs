@@ -198,7 +198,7 @@ namespace UnityOSC
 					break;
 
 				default:
-					throw new Exception("Unsupported data type.");
+					throw new Exception("Unsupported data type:"+type);
 			}
 
 			_typeTag += typeTag;

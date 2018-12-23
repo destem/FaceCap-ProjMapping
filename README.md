@@ -58,10 +58,23 @@ Please refere to the following for all key commands
 | P      |  Go to the next texture|
 
 #### OSC implementation
-There are three functions in this OSC Implementation.
+There are two OSC Implementations. The first is for recieveing data to control the display the other is to recieve information from the device
+##### Controlling the Device 
+There are four commands to control the device 
 
 The first is to turn on and off the display. The display is controlled through the `/osc/display/` address and uses the value `1` to display and `0` to turn off the display.
 
 The second is to control which mask is being displayed. This is used through the `/osc/mask/` address and can either take the number of the mask, i.e. mask one would use the value `1` or the command `next` which would go to the next mask.
 
 The third is to control who is being tracked. This is used throug hthe `/osc/person` address and can either take the number of the person to be tracked or the comannd `next` which would display the next person
+
+The fourth is to enable feeback from the device. Using the `/osc/connect` address as well as your ip address formated as a string you can connect to the device and it will begin sending you updates
+
+##### Feedback from the Device
+The device will report three things to you
+
+The device will use the `/osc/tracking` address to report wether or not someone is being tracked through a int where 0 is false and 1 is true.
+
+The device will use the `/osc/users` address to report the number of users being tracked through an int.
+
+The device will use the `/osc/current` address to report the current user index.
