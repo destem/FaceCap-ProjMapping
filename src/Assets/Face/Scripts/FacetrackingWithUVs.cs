@@ -18,7 +18,6 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     //variable to change uv's
     private bool changeUV = true;
-    private bool maskMesh = false;
 
     //current mask
     private int currentUV = 0;
@@ -157,10 +156,12 @@ public class FacetrackingWithUVs : MonoBehaviour
     //switch to the next person
     public int nextPerson()
     {
+        //go to the next index
         playerIndex++;
         if(playerIndex >= KinectManager.Instance.GetBodyCount())
         {
-            playerIndex = KinectManager.Instance.GetBodyCount() - 1;
+            // if there is no players then set zero else set to highest player
+            playerIndex = KinectManager.Instance.GetBodyCount() != 0 ? KinectManager.Instance.GetBodyCount() - 1 : 0;
         }
         return playerIndex;
     }
@@ -171,28 +172,33 @@ public class FacetrackingWithUVs : MonoBehaviour
         playerIndex = input ;
         if (playerIndex >= KinectManager.Instance.GetBodyCount())
         {
-            playerIndex = KinectManager.Instance.GetBodyCount() - 1;
+            // if there is no players then set zero else set to highest player
+            playerIndex = KinectManager.Instance.GetBodyCount() != 0 ? KinectManager.Instance.GetBodyCount() - 1 : 0;
         }
         return playerIndex;
     }
-
+    //go to the next texture
     public bool nextTexture()
     {
+        //if texture is changing then return
         if (textureChanging())
         {
             return false;
         }
+
+        //lock the texture
         textureLock = true;
+
         currentUV++;
         if (currentUV >= faceImages.Length)
         {
             currentUV = 0;
         }
-        maskMesh = true;
         changeUV = true;
         return true;
     }
 
+    //go to the next texture
     public bool nextTexture(int texture)
     {
         if (textureChanging())
@@ -205,7 +211,6 @@ public class FacetrackingWithUVs : MonoBehaviour
         {
             currentUV = faceImages.Length - 1;
         }
-        maskMesh = true;
         changeUV = true;
         return true;
     }
@@ -596,10 +601,15 @@ public class FacetrackingWithUVs : MonoBehaviour
             {
                 //get the new user
                 lastUserID = primaryUserID;
-                if(playerIndex >= kinectManager.GetUsersCount())
+                
+                //if player index is out of bounds
+                if(playerIndex >= kinectManager.GetUsersCount() && kinectManager.GetUsersCount() != 0)
                 {
                     playerIndex = kinectManager.GetUsersCount() - 1;
+
                 }
+
+
                 primaryUserID = kinectManager.GetUserIdByIndex(playerIndex);
 
                 //if new user
