@@ -1,2 +1,0 @@
-GRFLHead_Liza model by Vit3D. Used with permission.
-Full versions of this and other models by Vit3D can be found here: https://www.assetstore.unity3d.com/en/#!/search/page=1/sortby=relevance/query=publisher:15211
