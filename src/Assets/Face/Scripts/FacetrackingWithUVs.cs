@@ -27,9 +27,6 @@ public class FacetrackingWithUVs : MonoBehaviour
     //display uv variables
     private bool display = false;
 
-    [Tooltip("Texture used to hide the projection of the face")]
-    public Texture2D blackTexture;
-
     //vector for uvs
     private Vector2[] fixedUVs = new Vector2[1347];
 
@@ -956,7 +953,7 @@ public class FacetrackingWithUVs : MonoBehaviour
                     changeUV = false;
                     if (!display)
                     {
-                        faceMeshMaterial.mainTexture = blackTexture;
+                        faceMeshMaterial.mainTexture = null;
                     }
                     else
                     {
