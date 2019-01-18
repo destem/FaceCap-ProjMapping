@@ -828,6 +828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   port: 8338
+  ipaddress: 10.0.0.1
 --- !u!1 &1204629168
 GameObject:
   m_ObjectHideFlags: 0
