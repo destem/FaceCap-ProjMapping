@@ -32,6 +32,8 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     //display uv variables
     private bool display = false;
+    public GameObject mainCamera;
+    private LightController lightControl;
 
     //vector for uvs
     private Vector2[] fixedUVs = new Vector2[1347];
@@ -230,6 +232,7 @@ public class FacetrackingWithUVs : MonoBehaviour
     public bool setDisplay(bool value)
     {
         display = value;
+        lightControl.LightSwitch(value);
         changeUV = true;
         return display;
     }
@@ -489,6 +492,10 @@ public class FacetrackingWithUVs : MonoBehaviour
 
     void Start()
     {
+    	//get the light object
+    	lightControl = mainCamera.GetComponent<LightController>();
+
+
         //convert the UV's of the object to vectors
         for (int i = 0; i < fixedUVs.Length; i++)
         {
@@ -918,6 +925,7 @@ public class FacetrackingWithUVs : MonoBehaviour
             // only needed if default mesh is being used
             task.Start();
 
+            
             // wtf why wait till done if async othern than for performance
             while (task.State == AsyncTaskState.Running)
             {
@@ -1076,8 +1084,7 @@ public class FacetrackingWithUVs : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space)){
-            display = !display;
-            changeUV = true;
+            setDisplay(!display);
         }
 
     }

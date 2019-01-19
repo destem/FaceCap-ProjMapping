@@ -17,6 +17,7 @@ public class OSCControl : MonoBehaviour {
     //private variable for controlling the project
     private FacetrackingWithUVs kinectControler;
     
+    
     //bool for sending data
     private bool connected = false;
     private bool tracking = false;
