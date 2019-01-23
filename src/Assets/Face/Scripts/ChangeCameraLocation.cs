@@ -8,14 +8,18 @@ public class ChangeCameraLocation : MonoBehaviour {
     public float rotationOffset;
     public UnityEngine.UI.Text cameraText;
 
+
+    //kinect controller
+
     //offset variables
     private Vector3 offsetx;
+    private Vector3 offsety;
     private Vector3 offsetz;
-    //y direction does not affect kinect in testing
 
         // Use this for initialization
     void Start () {
         offsetx = new Vector3(positionOffset,0,0);
+        offsety = new Vector3(0,positionOffset,0);
         offsetz = new Vector3(0,0,positionOffset);
         cameraText.text = transform.position.ToString();
     }
@@ -47,6 +51,16 @@ public class ChangeCameraLocation : MonoBehaviour {
         {
             transform.position = transform.position-offsetz;
             update = true;
+        }
+        if (Input.GetKey("r"))
+        {
+            transform.position = transform.position+offsety;
+        	update = true;
+        }
+        if (Input.GetKey("f"))
+        {
+        	transform.position = transform.position+offsety;
+        	update = true;
         }
         if (Input.GetKey("z"))
         {

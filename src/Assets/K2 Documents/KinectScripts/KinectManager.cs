@@ -718,6 +718,13 @@ public class KinectManager : MonoBehaviour
 		return kinectToWorld;
 	}
 
+	public void setKinectHeight(float number){
+		sensorHeight = number;
+	}
+
+	public float getKinectHeight(){
+		return sensorHeight;
+	}
 	/// <summary>
 	/// Updates the kinect to world transform matrix, according to the current values of SensorHeight, SensorAngle and FlipLeftRight.
 	/// </summary>
