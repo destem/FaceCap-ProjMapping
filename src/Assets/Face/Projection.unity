@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66ca447535b9e0b4ab309f90a94f104c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionOffset: 0.01
+  positionOffset: 0.0025
   rotationOffset: 10
   KinectManager: {fileID: 1132228660}
   cameraText: {fileID: 1204629171}
