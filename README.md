@@ -46,6 +46,8 @@ Please refere to the following for all key commands
 | A      |  Move the display farther from the face|
 | S      | Move the display to the left of the face|
 | D      | Move the display to the right of the face|
+| R      | Move the face up|
+| F      | Move the face down|
 | Q      | Rotate the display counter-clockwise|
 | E      | Rotate the display clockwise |
 | Z      |  Pan the display left|

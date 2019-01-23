@@ -6,6 +6,9 @@ public class ChangeCameraLocation : MonoBehaviour {
     //public variables for change
     public float positionOffset;
     public float rotationOffset;
+    public GameObject KinectManager;
+    private FacetrackingWithUVs manager;
+
     public UnityEngine.UI.Text cameraText;
 
 
@@ -13,13 +16,14 @@ public class ChangeCameraLocation : MonoBehaviour {
 
     //offset variables
     private Vector3 offsetx;
-    private Vector3 offsety;
+    private float offsety;
     private Vector3 offsetz;
 
         // Use this for initialization
     void Start () {
+    	manager = KinectManager.GetComponent<FacetrackingWithUVs>();
         offsetx = new Vector3(positionOffset,0,0);
-        offsety = new Vector3(0,positionOffset,0);
+        offsety = positionOffset;
         offsetz = new Vector3(0,0,positionOffset);
         cameraText.text = transform.position.ToString();
     }
@@ -54,12 +58,12 @@ public class ChangeCameraLocation : MonoBehaviour {
         }
         if (Input.GetKey("r"))
         {
-            transform.position = transform.position+offsety;
+        	manager.setHeight(manager.getHeight() + offsety);
         	update = true;
         }
         if (Input.GetKey("f"))
         {
-        	transform.position = transform.position+offsety;
+        	manager.setHeight(manager.getHeight() - offsety);
         	update = true;
         }
         if (Input.GetKey("z"))

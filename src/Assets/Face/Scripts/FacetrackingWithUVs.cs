@@ -32,6 +32,8 @@ public class FacetrackingWithUVs : MonoBehaviour
     //private bool for next preson
     private bool changePerson = false;
 
+    //private float to set height
+    private float headHeight = 0f;
     //display uv variables
     private bool display = false;
     public GameObject mainCamera;
@@ -160,6 +162,14 @@ public class FacetrackingWithUVs : MonoBehaviour
     private Vector3 nosePos = Vector3.zero;
 
     /*-------------------------------------PUBLIC FUNCTIONS-------------------------------------------*/
+    public void setHeight(float inputHeight){
+    	headHeight = inputHeight;
+    }
+
+    public float getHeight(){
+    	return headHeight;
+    }
+
     public int getCount()
     {
         return KinectManager.Instance.GetBodyCount();
@@ -1024,7 +1034,7 @@ public class FacetrackingWithUVs : MonoBehaviour
                 }
             }
             // flip X for projection. Just inverting the cam's projection matrix won't do it - it's used to calculate the head position
-            newHeadPos = new Vector3(-newHeadPos.x, newHeadPos.y, newHeadPos.z);
+            newHeadPos = new Vector3(-newHeadPos.x, newHeadPos.y + headHeight, newHeadPos.z);
             faceModelMesh.transform.position = newHeadPos; // Vector3.Lerp(faceModelMesh.transform.position, newHeadPos, 20f * Time.deltaTime);
                                                            //faceModelMesh.transform.rotation = faceModelRot;
         }
