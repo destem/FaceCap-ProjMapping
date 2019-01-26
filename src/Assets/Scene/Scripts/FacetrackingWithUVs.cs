@@ -245,12 +245,32 @@ public class FacetrackingWithUVs : MonoBehaviour
         return textureLock;
     }
 
+    //update display
+    public bool changeDisplay()
+    {
+        display = !display;
+        lightControl.LightSwitch(display);
+        changeUV = true;
+        return display;
+    }
+
     public bool setDisplay(bool value)
     {
         display = value;
         lightControl.LightSwitch(value);
         changeUV = true;
         return display;
+    }
+
+    //updated brightness
+    public float setBrightness(float value)
+    {
+        lightControl.setIntensity(value);
+        return value;
+    }
+    public float getBrightness()
+    {
+        return lightControl.getIntensity();
     }
 
     //returns the instance
@@ -1101,15 +1121,7 @@ public class FacetrackingWithUVs : MonoBehaviour
         	print (GetFaceModelTriangleIndices (false).Length);
 
         }*/
-        if (Input.GetKeyDown(KeyCode.P))
-        {
 
-            nextTexture();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space)){
-            setDisplay(!display);
-        }
 
     }
 

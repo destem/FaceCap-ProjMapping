@@ -17,4 +17,14 @@ public class LightController : MonoBehaviour {
 	public void LightSwitch(bool b)  {
 		this.gameObject.GetComponent<Light>().enabled = b;
 	}
+
+    public void setIntensity(float value)
+    {
+        this.gameObject.GetComponent<Light>().intensity = value;
+    }
+
+    public float getIntensity()
+    {
+        return this.gameObject.GetComponent<Light>().intensity;
+    }
 }

@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeCameraLocation : MonoBehaviour {
+public class KeyboardController : MonoBehaviour {
     //public variables for change
     public float positionOffset;
     public float rotationOffset;
+    public float brightnessOffset;
+
     public GameObject KinectManager;
     private FacetrackingWithUVs manager;
 
@@ -87,6 +89,24 @@ public class ChangeCameraLocation : MonoBehaviour {
             transform.Rotate(0,0,rotationOffset);
             update = true;
         }
+        if (Input.GetKey("p"))
+        {
+
+            manager.nextTexture();
+        }
+        if (Input.GetKey(KeyCode.Space))
+        {
+            manager.changeDisplay();
+        }
+        if (Input.GetKey(KeyCode.Plus))
+        {
+            manager.setBrightness(manager.getBrightness() + brightnessOffset);
+        }
+        if (Input.GetKey(KeyCode.Minus))
+        {
+            manager.setBrightness(manager.getBrightness() - brightnessOffset);
+
+        }
 
         //update text
         if (update)
@@ -94,6 +114,7 @@ public class ChangeCameraLocation : MonoBehaviour {
             cameraText.text = transform.position.ToString() + transform.rotation.ToString();
             
         }
+        
 
     }
 }
