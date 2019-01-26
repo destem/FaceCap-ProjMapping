@@ -740,7 +740,7 @@ MonoBehaviour:
   sensorHeight: 2
   sensorAngle: 0
   autoHeightAngle: 0
-  computeUserMap: 2
+  computeUserMap: 4
   computeColorMap: 1
   computeInfraredMap: 1
   displayUserMap: 1
