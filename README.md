@@ -59,8 +59,11 @@ Please refere to the following for all key commands
 | Space     | Turn on/off the display|
 | P      |  Go to the next texture|
 
-#### OSC implementation
-There are two OSC Implementations. The first is for recieveing data to control the display the other is to recieve information from the device
+#### OSC implementatio
+This project also implements OSC to control the project as well as to get information from the device
+
+##### Device Status
+To check the device status send an osc message through the `/osc/status` address and then listen back on the `/osc/status` address. If the value is true then the face is tracking else there is is no face being tracked.
 ##### Controlling the Device 
 There are four commands to control the device 
 
