@@ -27,7 +27,10 @@ public class OSCControl : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        //start receiver
         reciever = new OSCReciever();
+
+        //try to connect to default client
         try
         {
             client = new OSCClient(IPAddress.Parse(ipaddress),port);
@@ -35,6 +38,8 @@ public class OSCControl : MonoBehaviour {
         } catch (Exception e){
             Debug.Log(e);
         }
+
+        //open port to listen
         reciever.Open(port);
         kinectControler = GetComponent<FacetrackingWithUVs>();
         Debug.Log("Started OSC");
@@ -43,7 +48,8 @@ public class OSCControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(tracking != kinectControler.IsTrackingFace() && connected)
+        //if connected to server send message
+        if(connected && tracking != kinectControler.IsTrackingFace())
         {
             int output = 0;
             if (kinectControler.IsTrackingFace())
@@ -54,20 +60,20 @@ public class OSCControl : MonoBehaviour {
             tracking = kinectControler.IsTrackingFace();
         }
 
-        if (numberTracking != kinectControler.getCount() && connected)
+        if (connected && numberTracking != kinectControler.getCount())
         {
             client.Send(new OSCMessage("/osc/users", kinectControler.getCount()));
             numberTracking = kinectControler.getCount();
         }
 
-        if (personIndex != kinectControler.playerIndex && connected)
+        if (connected && personIndex != kinectControler.playerIndex)
         {
             client.Send(new OSCMessage("/osc/current", kinectControler.playerIndex));
             personIndex = kinectControler.playerIndex;
         }
 
 
-        //if message avaliable
+        //if there is a message
         if (reciever.hasWaitingMessages())
         {
             OSCMessage message = reciever.getNextMessage();
@@ -141,11 +147,16 @@ public class OSCControl : MonoBehaviour {
                 } catch (Exception exception)
                 {
                     Debug.Log(exception) ;
-                }
-
-                
+                } 
             }
 
+            if (message.Address == "/osc/status")
+            {
+                if (connected)
+                {
+                    client.Send(new OSCMessage("/osc/status", kinectControler.IsTrackingFace()));
+                }
+            }
         }
     }
     private void OnDestroy()

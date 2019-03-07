@@ -42,6 +42,9 @@ public class FacetrackingWithUVs : MonoBehaviour
     //vector for uvs
     private Vector2[] fixedUVs = new Vector2[1347];
 
+    //variaable to flip head accross axis
+    public bool flipModelHorizontally;
+
     //index of the player to track
     //made private to allow ease of switching
     [Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
@@ -1054,9 +1057,13 @@ public class FacetrackingWithUVs : MonoBehaviour
                 }
             }
             // flip X for projection. Just inverting the cam's projection matrix won't do it - it's used to calculate the head position
-            newHeadPos = new Vector3(-newHeadPos.x, newHeadPos.y + headHeight, newHeadPos.z);
-            faceModelMesh.transform.position = newHeadPos; // Vector3.Lerp(faceModelMesh.transform.position, newHeadPos, 20f * Time.deltaTime);
-                                                           //faceModelMesh.transform.rotation = faceModelRot;
+            if (flipModelHorizontally)
+            {
+                newHeadPos = new Vector3(-newHeadPos.x, newHeadPos.y + headHeight, newHeadPos.z);
+                faceModelMesh.transform.position = newHeadPos; // Vector3.Lerp(faceModelMesh.transform.position, newHeadPos, 20f * Time.deltaTime);
+                                                               //faceModelMesh.transform.rotation = faceModelRot;
+            }
+
         }
 
         // don't rotate the transform - mesh follows the head rotation
@@ -1105,24 +1112,6 @@ public class FacetrackingWithUVs : MonoBehaviour
 
         return Vector3.zero;
     }
-  
-    void LateUpdate()
-    {
-        // CODE TO SAVE VERTICIES 
-        /*
-        if (Input.GetKeyDown (KeyCode.Q)) {
-        	ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
-        	print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
-        	print("Verts:");
-        	print (GetFaceModelVertices().Length);
-        	print ("UVs");
-        	print (GetFaceModelUV ().Length);
-        	print ("indices");
-        	print (GetFaceModelTriangleIndices (false).Length);
 
-        }*/
-
-
-    }
 
 }

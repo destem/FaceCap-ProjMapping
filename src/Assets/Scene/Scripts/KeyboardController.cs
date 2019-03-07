@@ -107,6 +107,20 @@ public class KeyboardController : MonoBehaviour {
             manager.setBrightness(manager.getBrightness() - brightnessOffset);
 
         }
+        // CODE TO SAVE VERTICIES 
+        /*
+        if (Input.GetKeyDown (KeyCode.Q)) {
+        	ObjExporter.MeshToFile (GetFaceModelVertices(), GetFaceModelUV(), GetFaceModelTriangleIndices(false), Application.persistentDataPath + "/derp.obj");
+        	print ("Saved to: " + Application.persistentDataPath + "/derp.obj");
+        	print("Verts:");
+        	print (GetFaceModelVertices().Length);
+        	print ("UVs");
+        	print (GetFaceModelUV ().Length);
+        	print ("indices");
+        	print (GetFaceModelTriangleIndices (false).Length);
+
+        }*/
+
 
         //update text
         if (update)
