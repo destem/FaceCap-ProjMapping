@@ -57,6 +57,7 @@ Please refere to the following for all key commands
 | Key           | Command      |
 | ------------- |:-------------:|
 | Space     | Turn on/off the display|
+| O     |  Go to the next person|
 | P      |  Go to the next texture|
 
 #### OSC implementatio

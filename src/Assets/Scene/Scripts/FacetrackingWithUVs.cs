@@ -33,7 +33,11 @@ public class FacetrackingWithUVs : MonoBehaviour
     private bool changePerson = false;
 
     //private float to set height
-    private float headHeight = 0f;
+    public float headHeight = 0f;
+    public float headLateral = 0f;
+    public float headDepth = 0f;
+
+
     //display uv variables
     private bool display = false;
     public GameObject mainCamera;
@@ -173,9 +177,31 @@ public class FacetrackingWithUVs : MonoBehaviour
     	return headHeight;
     }
 
+    public void setLateral(float inputLateral){
+    	headLateral = inputLateral;
+    }
+
+    public float getLateral(){
+    	return headLateral;
+    }
+
+    public void setDepth(float inputDepth){
+    	headDepth = inputDepth;
+    }
+
+    public float getDepth(){
+    	return headDepth;
+    }
+
+
     public int getCount()
     {
         return KinectManager.Instance.GetBodyCount();
+    }
+
+    //get player index
+    public int getPlayerIndex(){
+    	return playerIndex;
     }
     //switch to the next person
     public int nextPerson()
@@ -184,10 +210,10 @@ public class FacetrackingWithUVs : MonoBehaviour
 
         //go to the next index
         playerIndex++;
-        if(playerIndex >= KinectManager.Instance.GetBodyCount())
+        if(playerIndex >= GetUserCount())
         {
-            // if there is no players then set zero else set to highest player
-            playerIndex = KinectManager.Instance.GetBodyCount() != 0 ? KinectManager.Instance.GetBodyCount() - 1 : 0;
+            // if there is no players then reroute to 0
+            playerIndex = 0;
         }
         return playerIndex;
     }
@@ -198,10 +224,10 @@ public class FacetrackingWithUVs : MonoBehaviour
         changePerson = true;
 
         playerIndex = input ;
-        if (playerIndex >= KinectManager.Instance.GetBodyCount())
+        if (playerIndex >= GetUserCount())
         {
-            // if there is no players then set zero else set to highest player
-            playerIndex = KinectManager.Instance.GetBodyCount() != 0 ? KinectManager.Instance.GetBodyCount() - 1 : 0;
+           //If past the highest person then re route to 0
+           playerIndex = 0;
         }
         return playerIndex;
     }
@@ -224,6 +250,10 @@ public class FacetrackingWithUVs : MonoBehaviour
         }
         changeUV = true;
         return true;
+    }
+
+    public int GetUserCount(){
+    	return KinectManager.Instance.GetUsersCount();
     }
 
     //go to the next texture
@@ -1059,7 +1089,7 @@ public class FacetrackingWithUVs : MonoBehaviour
             // flip X for projection. Just inverting the cam's projection matrix won't do it - it's used to calculate the head position
             if (flipModelHorizontally)
             {
-                newHeadPos = new Vector3(-newHeadPos.x, newHeadPos.y + headHeight, newHeadPos.z);
+                newHeadPos = new Vector3(-newHeadPos.x+headLateral, newHeadPos.y + headHeight, newHeadPos.z+headDepth);
                 faceModelMesh.transform.position = newHeadPos; // Vector3.Lerp(faceModelMesh.transform.position, newHeadPos, 20f * Time.deltaTime);
                                                                //faceModelMesh.transform.rotation = faceModelRot;
             }

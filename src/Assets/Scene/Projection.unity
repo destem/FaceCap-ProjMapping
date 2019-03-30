@@ -293,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 196037490}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -715,6 +715,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 3c7db273471825c4fb753a3d0c17215d, type: 3}
   blackTexture: {fileID: 2800000, guid: 39d1a3295162bd641b1bf5372fcf4eba, type: 3}
   mainCamera: {fileID: 196037490}
+  flipModelHorizontally: 1
   playerIndex: 0
   getFaceModelData: 1
   displayFaceRect: 0
@@ -746,10 +747,10 @@ MonoBehaviour:
   computeInfraredMap: 1
   displayUserMap: 1
   displayColorMap: 1
-  displaySkeletonLines: 1
+  displaySkeletonLines: 0
   DisplayMapsWidthPercent: 20
   useMultiSourceReader: 1
-  minUserDistance: 0.5
+  minUserDistance: 0.1
   maxUserDistance: 0
   maxLeftRightDistance: 0
   maxTrackedUsers: 6
@@ -781,7 +782,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1132228660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

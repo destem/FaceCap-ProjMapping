@@ -17,16 +17,16 @@ public class KeyboardController : MonoBehaviour {
     //kinect controller
 
     //offset variables
-    private Vector3 offsetx;
+    private float offsetx;
     private float offsety;
-    private Vector3 offsetz;
+    private float offsetz;
 
         // Use this for initialization
     void Start () {
     	manager = KinectManager.GetComponent<FacetrackingWithUVs>();
-        offsetx = new Vector3(positionOffset,0,0);
+        offsetx = positionOffset;
         offsety = positionOffset;
-        offsetz = new Vector3(0,0,positionOffset);
+        offsetz = positionOffset;
         cameraText.text = transform.position.ToString();
     }
         
@@ -38,24 +38,24 @@ public class KeyboardController : MonoBehaviour {
         //listen for key inputs        
         if (Input.GetKey("a"))
         {
-            transform.position = transform.position+offsetx;
+            manager.setLateral(manager.getLateral() - offsetx);
             update = true;
         }
 
         if (Input.GetKey("d"))
         {
-            transform.position = transform.position-offsetx;
+            manager.setLateral(manager.getLateral() + offsetx);
             update = true;
         }
         if (Input.GetKey("w"))
         {
-            transform.position = transform.position+offsetz;
+            manager.setDepth(manager.getDepth() - offsetz);
             update = true;
         }
 
         if (Input.GetKey("s"))
         {
-            transform.position = transform.position-offsetz;
+            manager.setDepth(manager.getDepth() + offsetz);
             update = true;
         }
         if (Input.GetKey("r"))
@@ -89,12 +89,16 @@ public class KeyboardController : MonoBehaviour {
             transform.Rotate(0,0,rotationOffset);
             update = true;
         }
+        if (Input.GetKey("o"))
+        {
+            manager.nextPerson();
+            
+        }
         if (Input.GetKey("p"))
         {
-
             manager.nextTexture();
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             manager.changeDisplay();
         }
